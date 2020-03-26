@@ -15,7 +15,7 @@ import com.vanniktech.emoji.ios.IosEmoji;
   }
 
   @Override @DrawableRes public int getIcon() {
-    return R.drawable.emoji_ios_category_activities;
+    return R.drawable.emoji_ios_category_act;
   }
 
   @Override @StringRes public int getCategoryName() {

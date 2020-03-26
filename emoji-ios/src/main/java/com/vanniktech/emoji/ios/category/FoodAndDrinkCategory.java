@@ -15,7 +15,7 @@ import com.vanniktech.emoji.ios.IosEmoji;
   }
 
   @Override @DrawableRes public int getIcon() {
-    return R.drawable.emoji_ios_category_foodanddrink;
+    return R.drawable.emoji_ios_category_food;
   }
 
   @Override @StringRes public int getCategoryName() {

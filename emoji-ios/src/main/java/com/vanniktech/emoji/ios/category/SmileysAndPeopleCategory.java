@@ -15,7 +15,7 @@ import com.vanniktech.emoji.ios.IosEmoji;
   }
 
   @Override @DrawableRes public int getIcon() {
-    return R.drawable.emoji_ios_category_smileysandpeople;
+    return R.drawable.emoji_ios_category_smileys;
   }
 
   @Override @StringRes public int getCategoryName() {

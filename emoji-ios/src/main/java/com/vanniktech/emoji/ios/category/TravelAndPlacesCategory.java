@@ -15,7 +15,7 @@ import com.vanniktech.emoji.ios.IosEmoji;
   }
 
   @Override @DrawableRes public int getIcon() {
-    return R.drawable.emoji_ios_category_travelandplaces;
+    return R.drawable.emoji_ios_category_travel;
   }
 
   @Override @StringRes public int getCategoryName() {

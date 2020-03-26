@@ -15,7 +15,7 @@ import com.vanniktech.emoji.ios.IosEmoji;
   }
 
   @Override @DrawableRes public int getIcon() {
-    return R.drawable.emoji_ios_category_animalsandnature;
+    return R.drawable.emoji_ios_category_animal;
   }
 
   @Override @StringRes public int getCategoryName() {

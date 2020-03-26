@@ -2,6 +2,7 @@ package com.vanniktech.emoji;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
@@ -58,9 +59,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
     final View emojiDivider = findViewById(R.id.emojiViewDivider);
     emojiDivider.setBackgroundColor(builder.dividerColor != 0 ? builder.dividerColor : Utils.resolveColor(context, R.attr.emojiDivider, R.color.emoji_divider));
 
-    if (builder.pageTransformer != null) {
-      emojisPager.setPageTransformer(true, builder.pageTransformer);
-    }
+//    if (builder.pageTransformer != null) {
+//      emojisPager.setPageTransformer(true, builder.pageTransformer);
+//    }
 
     final LinearLayout emojisTab = findViewById(R.id.emojiViewTab);
     emojisPager.addOnPageChangeListener(this);
@@ -71,9 +72,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
     emojiTabs[0] = inflateButton(context, R.drawable.emoji_recent, R.string.emoji_category_recent, emojisTab);
     for (int i = 0; i < categories.length; i++) {
       emojiTabs[i + 1] = inflateButton(context, categories[i].getIcon(), categories[i].getCategoryName(), emojisTab);
+//      emojiTabs[i+1].setColorFilter(R.color.emoji_white, PorterDuff.Mode.SCREEN);
     }
     emojiTabs[emojiTabs.length - 1] = inflateButton(context, R.drawable.emoji_backspace, R.string.emoji_backspace, emojisTab);
-
     handleOnClicks(emojisPager);
 
     emojiPagerAdapter = new EmojiPagerAdapter(onEmojiClickListener, onEmojiLongClickListener, builder.recentEmoji, builder.variantEmoji);
@@ -126,8 +127,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
       }
 
       emojiTabs[i].setSelected(true);
-      emojiTabs[i].setColorFilter(themeAccentColor, PorterDuff.Mode.SRC_IN);
-
+//      emojiTabs[i].setColorFilter(R.color.emoji_color, PorterDuff.Mode.SRC_IN);
+      emojiTabs[i].setColorFilter(Color.argb(30, 161, 161, 161));
       emojiTabLastSelectedIndex = i;
     }
   }
