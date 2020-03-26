@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vanniktech.emoji.emoji.EmojiCategory;
 import com.vanniktech.emoji.listeners.OnEmojiBackspaceClickListener;
@@ -35,14 +36,15 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
   private final ImageButton[] emojiTabs;
   private final EmojiPagerAdapter emojiPagerAdapter;
-
-  @Nullable OnEmojiBackspaceClickListener onEmojiBackspaceClickListener;
+  private  TextView categoryTitle;
+  private  EmojiCategory[] categories;
+    @Nullable OnEmojiBackspaceClickListener onEmojiBackspaceClickListener;
 
   private int emojiTabLastSelectedIndex = -1;
 
   @SuppressWarnings("PMD.CyclomaticComplexity") public EmojiView(final Context context,
-      final OnEmojiClickListener onEmojiClickListener,
-      final OnEmojiLongClickListener onEmojiLongClickListener, @NonNull final EmojiPopup.Builder builder) {
+                                                                 final OnEmojiClickListener onEmojiClickListener,
+                                                                 final OnEmojiLongClickListener onEmojiLongClickListener, @NonNull final EmojiPopup.Builder builder, final EmojiPopup emojiPopup) {
     super(context);
 
     View.inflate(context, R.layout.emoji_view, this);
@@ -56,23 +58,24 @@ import static java.util.concurrent.TimeUnit.SECONDS;
     themeAccentColor = builder.selectedIconColor != 0 ? builder.selectedIconColor : value.data;
 
     final ViewPager emojisPager = findViewById(R.id.emojiViewPager);
-    final View emojiDivider = findViewById(R.id.emojiViewDivider);
-    emojiDivider.setBackgroundColor(builder.dividerColor != 0 ? builder.dividerColor : Utils.resolveColor(context, R.attr.emojiDivider, R.color.emoji_divider));
-
-//    if (builder.pageTransformer != null) {
-//      emojisPager.setPageTransformer(true, builder.pageTransformer);
-//    }
+    categoryTitle = findViewById(R.id.category_name);
+      final TextView keyboardBtn = findViewById(R.id.keyboard_btn);
+      keyboardBtn.setOnClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              emojiPopup.dismiss();
+          }
+      });
 
     final LinearLayout emojisTab = findViewById(R.id.emojiViewTab);
     emojisPager.addOnPageChangeListener(this);
 
-    final EmojiCategory[] categories = EmojiManager.getInstance().getCategories();
+     categories = EmojiManager.getInstance().getCategories();
 
     emojiTabs = new ImageButton[categories.length + 2];
-    emojiTabs[0] = inflateButton(context, R.drawable.emoji_recent, R.string.emoji_category_recent, emojisTab);
+    emojiTabs[0] = inflateButton(context, R.drawable.emoji_recent_mod, R.string.emoji_category_recent, emojisTab);
     for (int i = 0; i < categories.length; i++) {
       emojiTabs[i + 1] = inflateButton(context, categories[i].getIcon(), categories[i].getCategoryName(), emojisTab);
-//      emojiTabs[i+1].setColorFilter(R.color.emoji_white, PorterDuff.Mode.SCREEN);
     }
     emojiTabs[emojiTabs.length - 1] = inflateButton(context, R.drawable.emoji_backspace, R.string.emoji_backspace, emojisTab);
     handleOnClicks(emojisPager);
@@ -130,6 +133,12 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 //      emojiTabs[i].setColorFilter(R.color.emoji_color, PorterDuff.Mode.SRC_IN);
       emojiTabs[i].setColorFilter(Color.argb(30, 161, 161, 161));
       emojiTabLastSelectedIndex = i;
+        if(i<1) {
+            categoryTitle.setText(R.string.emoji_recent);
+            return;
+        };
+        categoryTitle.setText(categories[i-1].getCategoryName());
+
     }
   }
 
@@ -145,9 +154,11 @@ import static java.util.concurrent.TimeUnit.SECONDS;
     private final ViewPager emojisPager;
     private final int position;
 
+
     EmojiTabsClickListener(final ViewPager emojisPager, final int position) {
       this.emojisPager = emojisPager;
       this.position = position;
+
     }
 
     @Override public void onClick(final View v) {

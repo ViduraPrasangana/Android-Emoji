@@ -6,9 +6,12 @@
 
     <color name="emoji_white">#ffffffff</color>
     <color name="emoji_black">#ff000000</color>
-    <color name="emoji_gray20">#ffcccccc</color>
+    <color name="emoji_gray20">#A1A1A1</color>
     <color name="emoji_gray70">#ff4d4d4d</color>
     <color name="emoji_grey_900">#212121</color>
     <color name="emoji_white_trans">#00FFFFFF</color>
     <color name="emoji_color">#A1A1A1</color>
+
+    <color name="emoji_keyboard_background">#d1d2d6</color>
+    <color name="category_title_color">#B2646464</color>
 </resources>
